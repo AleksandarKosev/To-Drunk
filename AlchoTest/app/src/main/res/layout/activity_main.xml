@@ -70,7 +70,10 @@
             android:layout_marginStart="10dp"
 
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number"
+            android:singleLine="true"
+            android:textColorLink="@android:color/holo_blue_dark"
+            tools:textAppearance="@color/colorAccent" />
 
     </LinearLayout>
 

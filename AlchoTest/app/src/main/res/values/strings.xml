@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">AlchoTest</string>
+
+    <string-array name="drinks">
+        <item value="12">Beer 0.33l</item>
+        <item value="17">Beer 0.5l</item>
+        <item value="5">Wine</item>
+        <item value="4">Whiskey</item>
+        <item value="3">Vodka</item>
+        <item value="2">Tekila</item>
+    </string-array>
+    <string name="title_activity_calculator">CalculatorActivity</string>
 </resources>

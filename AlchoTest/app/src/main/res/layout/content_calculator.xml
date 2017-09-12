@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.a2drunk.alchotest.alchotest.CalculatorActivity"
+    tools:showIn="@layout/activity_calculator">
+
+
+    <RelativeLayout
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="28dp"
+            android:text="Type of alcohol consumed:"
+            android:textSize="18sp" />
+
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="wrap_content"
+            android:layout_height="46dp"
+            android:layout_below="@+id/textView3"
+            android:layout_marginStart="23dp"
+            android:entries="@array/drinks" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="91dp"
+            android:layout_height="wrap_content"
+
+            android:layout_alignBottom="@+id/spinner1"
+            android:layout_alignParentEnd="true"
+
+            android:layout_marginEnd="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="number" />
+
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/textView3"
+            android:layout_marginEnd="42dp"
+            android:layout_weight="1"
+            android:text="Count:"
+            tools:text="Count:" />
+
+        <ListView
+            android:id="@+id/list1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/editText2"
+            android:layout_below="@+id/spinner1"
+            android:layout_marginTop="43dp" />
+
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
