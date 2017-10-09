@@ -2,12 +2,16 @@
     <string name="app_name">AlchoTest</string>
 
     <string-array name="drinks">
-        <item value="12">Beer 0.33l</item>
-        <item value="17">Beer 0.5l</item>
-        <item value="5">Wine</item>
-        <item value="4">Whiskey</item>
-        <item value="3">Vodka</item>
-        <item value="2">Tekila</item>
+        <item id="330">Beer 330ml</item>
+        <item id="500">Beer 500ml</item>
+        <item id="12">Wine 187ml</item>
+        <item id="401">Whisky 40ml</item>
+        <item id="402">Vodka 40ml</item>
+        <item id="20">Tequila 20ml</item>
     </string-array>
     <string name="title_activity_calculator">CalculatorActivity</string>
+    <string name="insert_the_amount_of_time_spent_drinking_in_hours">Insert amount of time spent drinking (in Hours)</string>
+    <string name="hrs">Hrs</string>
+    <string name="ok">OK</string>
+    <string name="the_bac_in_your_system_is">The BAC in your system is:</string>
 </resources>

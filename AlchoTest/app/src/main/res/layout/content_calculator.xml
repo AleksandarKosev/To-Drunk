@@ -36,33 +36,6 @@
             android:layout_marginStart="23dp"
             android:entries="@array/drinks" />
 
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="91dp"
-            android:layout_height="wrap_content"
-
-            android:layout_alignBottom="@+id/spinner1"
-            android:layout_alignParentEnd="true"
-
-            android:layout_marginEnd="18dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="15dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="number" />
-
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/textView3"
-            android:layout_marginEnd="42dp"
-            android:layout_weight="1"
-            android:text="Count:"
-            tools:text="Count:" />
 
         <ListView
             android:id="@+id/list1"
@@ -71,6 +44,15 @@
             android:layout_alignEnd="@+id/editText2"
             android:layout_below="@+id/spinner1"
             android:layout_marginTop="43dp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:layout_marginEnd="15dp"
+            android:layout_below="@+id/textView3"
+            android:layout_alignParentEnd="true" />
 
 
     </RelativeLayout>

@@ -22,7 +22,7 @@ public class SecondActivity extends AppCompatActivity{
     }
 
     public void ListenerOnSpinner1_ItemSelection(){
-        spinner1 = (Spinner) findViewById(R.id.spinner1);
+
         //spinner1.setOnItemSelectedListener();
     }
 
