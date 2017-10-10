@@ -88,7 +88,13 @@ public class CalculatorActivity extends AppCompatActivity  {
         GENDERTYPE = GENDERTYPEPref.getInt("GENDERTYPE", 0);
 
         SharedPreferences BODY_WEIGHT_IN_KGPref = getSharedPreferences("BODY_WEIGHT_IN_KG", 0);
-        BODY_WEIGHT_IN_KG = BODY_WEIGHT_IN_KGPref.getInt("BODY_WEIGHT_IN_KG", 0);
+        BODY_WEIGHT_IN_KG = BODY_WEIGHT_IN_KGPref.getFloat("BODY_WEIGHT_IN_KG", 0);
+
+        SharedPreferences BODY_WATER_CONSTPref = getSharedPreferences("BODY_WATER_CONSTANT", 0);
+         BODY_WATER_CONSTANT = BODY_WATER_CONSTPref.getFloat("BODY_WATER_CONSTANT", 0);
+
+        SharedPreferences METABOLISM_CONSTANTPref = getSharedPreferences("METABOLISM_CONSTANT", 0);
+        METABOLISM_CONSTANT =METABOLISM_CONSTANTPref.getFloat("METABOLISM_CONSTANT", 0);
 
         SharedPreferences lastDrinkHrPref = getSharedPreferences("lastDrinkHr", 0);
         lastDrinkHr = lastDrinkHrPref.getFloat("lastDrinkHr", 0);
@@ -145,7 +151,8 @@ public class CalculatorActivity extends AppCompatActivity  {
 
 
 
-        final String[] text =  new String[] {(String) spinner1.getSelectedItem(), String.valueOf(count.getText())};
+        //final  String[] text =  new String[] {(String) spinner1.getSelectedItem(), String.valueOf(count.getText())};
+        final  String[] text =  new String[] {};
         final List<String> elements = new ArrayList<String>(Arrays.asList(text));
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, elements);
         list.setAdapter(adapter);
@@ -158,6 +165,13 @@ public class CalculatorActivity extends AppCompatActivity  {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+              /*  final  String[] text =  new String[] {};
+                final List<String> elements = new ArrayList<String>(Arrays.asList(text));
+                adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, elements);
+                list.setAdapter(adapter);*/
+
+
                 Snackbar.make(view, "Drink added to list!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 spinner1.getSelectedItem().toString();
@@ -218,6 +232,9 @@ public class CalculatorActivity extends AppCompatActivity  {
                          }
                      }
                  });
+                 mBuilder.setView(mView);
+                 AlertDialog dialog = mBuilder.create();
+                 dialog.show();
              }
          });
 

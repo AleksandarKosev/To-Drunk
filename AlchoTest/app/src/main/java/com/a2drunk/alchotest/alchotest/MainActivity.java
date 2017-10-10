@@ -15,6 +15,7 @@ import android.preference.PreferenceManager;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private Button submit;
     private RadioGroup radioSexGroup;
     private EditText weight_text;
@@ -28,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     float BODY_WEIGHT_IN_LB = 0;
     double GENDER =  0; //0.73 for man//ili 0.66 for women
-    float BODY_WATER_CONSTANT = (float) 0;//0.58 for man//0.49 for women
-    float METABOLISM_CONSTANT = (float) 0;//0.015 for man//0.017 for women
+    float BODY_WATER_CONSTANT = (float) 0;//0.58 for man//0.49 for women !!!!
+    float METABOLISM_CONSTANT = (float) 0;//0.015 for man//0.017 for women !!!!
 
 
     void storeGENDERTYPE() {
@@ -39,6 +40,17 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("GENDERTYPE", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt("GENDERTYPE", GENDERTYPE);        // Saving integer
+        editor.apply();
+        //ediotr.commit();
+    }
+
+    void storeGENDER() {
+        //SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        //SharedPreferences.Editor editor = settings.edit();
+        //editor.putInt("GENDERTYPE", GENDERTYPE);
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("GENDER", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putFloat("GENDER", (float) GENDER);        // Saving integer
         editor.apply();
         //ediotr.commit();
     }
@@ -53,6 +65,30 @@ public class MainActivity extends AppCompatActivity {
         //ediotr.commit();
     }
 
+
+/*
+    double BODY_WEIGHT_IN_LB=250;
+    double GENDER=0.73; //ili 0.66
+    double lastDrinkHr=1.5; */
+
+    //BAC%=(A*5.14/W*r)-0.015*H//A=total alchocol consumed(oz)//W=Body weight(lbs)//r=constant(0.73 or 0.66)//H=last drink
+    double mainFormula1(double listOz[],double listProcent[]){
+        double pro=0;
+        for(int i=0;i<listOz.length;i++){
+            pro+=listOz[i]*listProcent[i];
+        }
+        return (pro*0.75)-BODY_WEIGHT_IN_LB-lastDrinkHr*0.015;
+
+    }
+
+    double mainFormula2(double listOz[],double listProcent[]){
+        double pro=1;
+        for(int i=0;i<listOz.length;i++){
+            pro+=(listOz[i]*listProcent[i]/BODY_WEIGHT_IN_LB*GENDER)-0.015*lastDrinkHr;
+        }
+        return (pro*0.75)-BODY_WEIGHT_IN_LB-lastDrinkHr*0.015;
+
+    }
 
 
     @Override
@@ -87,20 +123,47 @@ public class MainActivity extends AppCompatActivity {
                             BODY_WATER_CONSTANT = (float) 0.58;
                             METABOLISM_CONSTANT = (float) 0.015;
                             storeGENDERTYPE();*/
-                            GENDERTYPE = 1;
-                            SharedPreferences pref = getApplicationContext().getSharedPreferences("GENDERTYPE", MODE_PRIVATE);
+                            GENDER = 0.73;
+                            SharedPreferences pref = getApplicationContext().getSharedPreferences("GENDER", MODE_PRIVATE);
                             SharedPreferences.Editor editor = pref.edit();
-                            editor.putInt("GENDERTYPE", GENDERTYPE);        // Saving integer
+                            editor.putFloat("GENDER",(float) GENDER);        // Saving integer
                             editor.apply();
+
+                           BODY_WATER_CONSTANT = (float) 0.58;
+                            pref = getApplicationContext().getSharedPreferences("BODY_WATER_CONSTANT", MODE_PRIVATE);
+                            editor = pref.edit();
+                           editor.putFloat("BODY_WATER_CONSTANT", BODY_WATER_CONSTANT);        // Saving integer
+                           editor.apply();
+
+
+                           METABOLISM_CONSTANT = (float) 0.015;
+
+                            pref = getApplicationContext().getSharedPreferences("METABOLISM_CONSTANT", MODE_PRIVATE);
+                            editor = pref.edit();
+                           editor.putFloat("METABOLISM_CONSTANT", METABOLISM_CONSTANT);        // Saving integer
+                           editor.apply();
+
 
                         }
 
                        else if(selectedID == R.id.radioButton2)
                         {
-                            GENDERTYPE = 2;
-                            SharedPreferences pref = getApplicationContext().getSharedPreferences("GENDERTYPE", MODE_PRIVATE);
+                            GENDER = 0.66;
+                            SharedPreferences pref = getApplicationContext().getSharedPreferences("GENDER", MODE_PRIVATE);
                             SharedPreferences.Editor editor = pref.edit();
-                            editor.putInt("GENDERTYPE", GENDERTYPE);        // Saving integer
+                            editor.putFloat("GENDER",(float) GENDER);        // Saving integer
+                            editor.apply();
+
+                            BODY_WATER_CONSTANT = (float)0.49;
+                            pref = getApplicationContext().getSharedPreferences("BODY_WATER_CONSTANT", MODE_PRIVATE);
+                            editor = pref.edit();
+                            editor.putFloat("BODY_WATER_CONSTANT", BODY_WATER_CONSTANT);        // Saving integer
+                            editor.apply();
+
+                            METABOLISM_CONSTANT = (float) 0.017 ;
+                            pref = getApplicationContext().getSharedPreferences("METABOLISM_CONSTANT", MODE_PRIVATE);
+                            editor = pref.edit();
+                            editor.putFloat("METABOLISM_CONSTANT", METABOLISM_CONSTANT);        // Saving integer
                             editor.apply();
 
                         }
