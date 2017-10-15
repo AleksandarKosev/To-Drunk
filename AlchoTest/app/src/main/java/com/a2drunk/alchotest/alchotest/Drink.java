@@ -24,7 +24,7 @@ public class Drink {
     public String toString() {return description + '\'' + mll + procentAlcho;}
 
     public float returnStandardDrink()
-    {return mll*procentAlcho*100*(float)0.789;}
+    {return mll / 1000 * procentAlcho * (float)0.789;}
 
 
 

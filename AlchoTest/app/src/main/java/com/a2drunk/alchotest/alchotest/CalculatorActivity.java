@@ -172,8 +172,8 @@ public class CalculatorActivity extends AppCompatActivity  {
                 list.setAdapter(adapter);*/
 
 
-                Snackbar.make(view, "Drink added to list!", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+               // Snackbar.make(view, "Drink added to list!", Snackbar.LENGTH_LONG)
+                 //       .setAction("Action", null).show();
                 spinner1.getSelectedItem().toString();
                 if(spinner1.getSelectedItem().toString().equals("Beer 330ml"))
                 {
