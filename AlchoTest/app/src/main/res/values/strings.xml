@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AlchoTest</string>
+    <string name="app_name">DrinkDrunk Test</string>
 
     <string-array name="drinks">
         <item id="330">Beer 330ml</item>
@@ -14,4 +14,10 @@
     <string name="hrs">Hrs</string>
     <string name="ok">OK</string>
     <string name="the_bac_in_your_system_is">The BAC in your system is:</string>
+    <string name="like">Like this app</string>
+    <string name="okay">Ok</string>
+    <string name="about_this_app">About this app</string>
+    <string name="note">Note:</string>
+    <string name="BAC_info">This blood alcochol calculator is not 100% accurate. Many other factors (such as age, amount of food in your system, taken medicine, etc.) have role in determing your BAC.</string>
+    <string name="drink_responsibly">Drink responsibly!</string>
 </resources>

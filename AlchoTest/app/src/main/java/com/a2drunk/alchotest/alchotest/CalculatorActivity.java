@@ -8,6 +8,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,7 +31,7 @@ public class CalculatorActivity extends AppCompatActivity  {
     private EditText count, hours;
     private ListView list;
     ArrayAdapter<String> adapter;
-    private Button submit, ok;
+    private Button submit, ok,okay;
     private TextView result;
 
     Dialog calcDialog;
@@ -227,8 +231,13 @@ public class CalculatorActivity extends AppCompatActivity  {
                              drinkingPeriodHr = Float.valueOf(hours.getText().toString());
                              countOfSD = calculateStandardDrinks();
                              float percent = mainFormula2(countOfSD);
-                             result.setText(String.format("%.3f", percent));
-
+                             if(percent <= 0)
+                             {
+                                 result.setText("0.00  permile (%o)");
+                             }
+                             else {
+                                 result.setText(String.format("%.3f", percent) + "  permile (%o)");
+                             }
                          }
                      }
                  });
@@ -240,6 +249,49 @@ public class CalculatorActivity extends AppCompatActivity  {
 
 
 
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.mymenu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.mymenu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId())
+        {
+            case R.id.info:
+                AlertDialog.Builder iBuilder = new AlertDialog.Builder(CalculatorActivity.this);
+                View iView = getLayoutInflater().inflate(R.layout.info_dialog, null);
+                iBuilder.setView(iView);
+                final  AlertDialog dialog = iBuilder.create();
+                okay = (Button) iView.findViewById(R.id.ok_button);
+                okay.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.cancel();
+                    }
+                });
+
+
+
+                dialog.show();
+
+        }
+
+
+        return true;
     }
 
 }

@@ -1,8 +1,13 @@
 package com.a2drunk.alchotest.alchotest;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,7 +21,7 @@ import android.preference.PreferenceManager;
 public class MainActivity extends AppCompatActivity {
 
 
-    private Button submit;
+    private Button submit, Ok;
     private RadioGroup radioSexGroup;
     private EditText weight_text;
 
@@ -102,9 +107,47 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+     getMenuInflater().inflate(R.menu.mymenu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.mymenu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId())
+        {
+            case R.id.info:
+                AlertDialog.Builder iBuilder = new AlertDialog.Builder(MainActivity.this);
+                View iView = getLayoutInflater().inflate(R.layout.info_dialog, null);
+                iBuilder.setView(iView);
+              final  AlertDialog dialog = iBuilder.create();
+                Ok = (Button) iView.findViewById(R.id.ok_button);
+                Ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.cancel();
+                    }
+                });
 
 
 
+                dialog.show();
+
+        }
+
+
+            return true;
+    }
 
     public void buttonClick(){
         submit = (Button)findViewById(R.id.button);

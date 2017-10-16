@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/about_this_app"
+        android:textStyle="bold"
+        android:textSize="27sp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"/>
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="10dp"
+    android:text="@string/note"
+    android:textStyle="bold"
+    android:textSize="23sp"
+    />
+
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="10dp"
+    android:text="@string/BAC_info"
+    android:textSize="21sp"
+    />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/drink_responsibly"
+        android:textSize="21sp"
+        android:textStyle="italic"
+        />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
+
+
+        <Button
+            android:id="@+id/Like"
+            android:layout_weight="1"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:text="@string/like"
+            android:layout_marginLeft="5dp"/>
+
+        <Button
+            android:id="@+id/ok_button"
+            android:layout_weight="1"
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:text="@string/okay"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="3dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
