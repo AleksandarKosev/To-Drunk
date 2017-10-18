@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,6 +21,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.google.firebase.crash.FirebaseCrash;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,10 +71,14 @@ public class CalculatorActivity extends AppCompatActivity  {
             sumOfSD += temp.returnStandardDrink();
         }
         //Log.v(TAG, "sumOfSD: " + sumOfSD);
+        FirebaseCrash.logcat(Log.ERROR, TAG, "in calcualteStandardDrink");
+        FirebaseCrash.log("in calcualteStandardDrinks");
         return sumOfSD;
     }
 
     public float mainFormula2(float sumofSD) {
+        FirebaseCrash.logcat(Log.ERROR, TAG, "in mainFormula2");
+        FirebaseCrash.log("in mainFormula2");
         return ((((float) 0.806 * sumofSD * (float) 1.2) / (BODY_WATER_CONSTANT * BODY_WEIGHT_IN_KG)) - (METABOLISM_CONSTANT * drinkingPeriodHr)) * 10;
 
         //sumofSD = calculateStandardDrinks()
@@ -112,6 +119,8 @@ public class CalculatorActivity extends AppCompatActivity  {
 
 
     void setConstans() {
+        FirebaseCrash.logcat(Log.ERROR, TAG, "setConstants");
+        FirebaseCrash.log("setConstants");
 
         BODY_WEIGHT_IN_LB = BODY_WEIGHT_IN_KG * (float) 2.20462;
         if (GENDERTYPE == 1) {
@@ -139,6 +148,9 @@ public class CalculatorActivity extends AppCompatActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        FirebaseCrash.logcat(Log.ERROR, TAG, "in onCreate in CalcualatorAcitivty");
+        FirebaseCrash.log("in onCreate in CalculatorActivity");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -154,7 +166,8 @@ public class CalculatorActivity extends AppCompatActivity  {
 
 
 
-
+        FirebaseCrash.logcat(Log.ERROR, TAG, "setting the text variable");
+        FirebaseCrash.log("setting the text variable");
         //final  String[] text =  new String[] {(String) spinner1.getSelectedItem(), String.valueOf(count.getText())};
         final  String[] text =  new String[] {};
         final List<String> elements = new ArrayList<String>(Arrays.asList(text));
@@ -217,6 +230,8 @@ public class CalculatorActivity extends AppCompatActivity  {
              @Override
              public void onClick(View view) {
 
+                 FirebaseCrash.logcat(Log.ERROR, TAG, "in submit");
+                 FirebaseCrash.log("in submit");
                  AlertDialog.Builder mBuilder = new AlertDialog.Builder(CalculatorActivity.this);
                  View mView = getLayoutInflater().inflate(R.layout.dialog_calc, null);
                   hours = (EditText) mView.findViewById(R.id.Hours);

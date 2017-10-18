@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +18,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
+import com.google.firebase.crash.FirebaseCrash;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     double GENDER =  0; //0.73 for man//ili 0.66 for women
     float BODY_WATER_CONSTANT = (float) 0;//0.58 for man//0.49 for women !!!!
     float METABOLISM_CONSTANT = (float) 0;//0.015 for man//0.017 for women !!!!
-
+    private static final String TAG = "Debug";
 
     void storeGENDERTYPE() {
         //SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
@@ -46,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt("GENDERTYPE", GENDERTYPE);        // Saving integer
         editor.apply();
+        FirebaseCrash.logcat(Log.ERROR, TAG, "Storing GENDERTYPE");
+        FirebaseCrash.log("Storing GENDERTYPE in storeGENDERTYPE");
         //ediotr.commit();
     }
 
@@ -57,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = pref.edit();
         editor.putFloat("GENDER", (float) GENDER);        // Saving integer
         editor.apply();
+        FirebaseCrash.logcat(Log.ERROR, TAG, "Storing GENDER");
+        FirebaseCrash.log("Storing GENDER in storeGENDER");
         //ediotr.commit();
     }
 
@@ -67,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = pref.edit();
         editor.putFloat("BODY_WEIGHT_IN_KG", BODY_WEIGHT_IN_KG);        // Saving integer
         editor.apply();
+        FirebaseCrash.logcat(Log.ERROR, TAG, "Storing BODY_WEIGHT_IN_KG");
+        FirebaseCrash.log("Storing BODY_WEIGHT_IN_KG in storeBODY-WEIGHT_IN_kg");
         //ediotr.commit();
     }
 
@@ -82,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
         for(int i=0;i<listOz.length;i++){
             pro+=listOz[i]*listProcent[i];
         }
+        FirebaseCrash.logcat(Log.ERROR, TAG, "Inside mainFormula1");
+        FirebaseCrash.log("Inside mainFormula1");
         return (pro*0.75)-BODY_WEIGHT_IN_LB-lastDrinkHr*0.015;
 
     }
@@ -91,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
         for(int i=0;i<listOz.length;i++){
             pro+=(listOz[i]*listProcent[i]/BODY_WEIGHT_IN_LB*GENDER)-0.015*lastDrinkHr;
         }
+        FirebaseCrash.logcat(Log.ERROR, TAG, "Inside mainFormula2");
+        FirebaseCrash.log("Inside mainFormula2");
         return (pro*0.75)-BODY_WEIGHT_IN_LB-lastDrinkHr*0.015;
 
     }
@@ -98,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        FirebaseCrash.logcat(Log.ERROR, TAG, "In onCreate In MainActivity");
+        FirebaseCrash.log("In onCreate In MainActivity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         radioSexGroup = (RadioGroup) findViewById(R.id.radioGroup);
@@ -150,6 +165,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buttonClick(){
+        FirebaseCrash.logcat(Log.ERROR, TAG, "in buttonClick");
+        FirebaseCrash.log("in buttonClick");
         submit = (Button)findViewById(R.id.button);
         //need to take values!!!
         submit.setOnClickListener(new View.OnClickListener() {
@@ -162,6 +179,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                        if(selectedID == R.id.radioButton1) {
+                           FirebaseCrash.logcat(Log.ERROR, TAG, "in if");
+                           FirebaseCrash.log("in if");
                             /*GENDER = 0.73;
                             BODY_WATER_CONSTANT = (float) 0.58;
                             METABOLISM_CONSTANT = (float) 0.015;
@@ -191,6 +210,8 @@ public class MainActivity extends AppCompatActivity {
 
                        else if(selectedID == R.id.radioButton2)
                         {
+                            FirebaseCrash.logcat(Log.ERROR, TAG, "in else if");
+                            FirebaseCrash.log("in else if");
                             GENDER = 0.66;
                             SharedPreferences pref = getApplicationContext().getSharedPreferences("GENDER", MODE_PRIVATE);
                             SharedPreferences.Editor editor = pref.edit();
