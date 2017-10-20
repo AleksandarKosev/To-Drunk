@@ -19,10 +19,14 @@ import android.widget.Toast;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.crash.FirebaseCrash;
 
 public class MainActivity extends AppCompatActivity {
 
+    private AdView mAdView;
 
     private Button submit, Ok;
     private RadioGroup radioSexGroup;
@@ -49,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt("GENDERTYPE", GENDERTYPE);        // Saving integer
         editor.apply();
-        FirebaseCrash.logcat(Log.ERROR, TAG, "Storing GENDERTYPE");
-        FirebaseCrash.log("Storing GENDERTYPE in storeGENDERTYPE");
+        //FirebaseCrash.logcat(Log.ERROR, TAG, "Storing GENDERTYPE");
+        //FirebaseCrash.log("Storing GENDERTYPE in storeGENDERTYPE");
         //ediotr.commit();
     }
 
@@ -62,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = pref.edit();
         editor.putFloat("GENDER", (float) GENDER);        // Saving integer
         editor.apply();
-        FirebaseCrash.logcat(Log.ERROR, TAG, "Storing GENDER");
-        FirebaseCrash.log("Storing GENDER in storeGENDER");
+        //FirebaseCrash.logcat(Log.ERROR, TAG, "Storing GENDER");
+        //FirebaseCrash.log("Storing GENDER in storeGENDER");
         //ediotr.commit();
     }
 
@@ -74,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = pref.edit();
         editor.putFloat("BODY_WEIGHT_IN_KG", BODY_WEIGHT_IN_KG);        // Saving integer
         editor.apply();
-        FirebaseCrash.logcat(Log.ERROR, TAG, "Storing BODY_WEIGHT_IN_KG");
-        FirebaseCrash.log("Storing BODY_WEIGHT_IN_KG in storeBODY-WEIGHT_IN_kg");
+        //FirebaseCrash.logcat(Log.ERROR, TAG, "Storing BODY_WEIGHT_IN_KG");
+        //FirebaseCrash.log("Storing BODY_WEIGHT_IN_KG in storeBODY-WEIGHT_IN_kg");
         //ediotr.commit();
     }
 
@@ -91,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
         for(int i=0;i<listOz.length;i++){
             pro+=listOz[i]*listProcent[i];
         }
-        FirebaseCrash.logcat(Log.ERROR, TAG, "Inside mainFormula1");
-        FirebaseCrash.log("Inside mainFormula1");
+        //FirebaseCrash.logcat(Log.ERROR, TAG, "Inside mainFormula1");
+        //FirebaseCrash.log("Inside mainFormula1");
         return (pro*0.75)-BODY_WEIGHT_IN_LB-lastDrinkHr*0.015;
 
     }
@@ -102,8 +106,8 @@ public class MainActivity extends AppCompatActivity {
         for(int i=0;i<listOz.length;i++){
             pro+=(listOz[i]*listProcent[i]/BODY_WEIGHT_IN_LB*GENDER)-0.015*lastDrinkHr;
         }
-        FirebaseCrash.logcat(Log.ERROR, TAG, "Inside mainFormula2");
-        FirebaseCrash.log("Inside mainFormula2");
+        //FirebaseCrash.logcat(Log.ERROR, TAG, "Inside mainFormula2");
+        //FirebaseCrash.log("Inside mainFormula2");
         return (pro*0.75)-BODY_WEIGHT_IN_LB-lastDrinkHr*0.015;
 
     }
@@ -111,10 +115,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        FirebaseCrash.logcat(Log.ERROR, TAG, "In onCreate In MainActivity");
-        FirebaseCrash.log("In onCreate In MainActivity");
+        //FirebaseCrash.logcat(Log.ERROR, TAG, "In onCreate In MainActivity");
+        //FirebaseCrash.log("In onCreate In MainActivity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
+        MobileAds.initialize(this, "ca-app-pub-3760255090560782~9342154398");
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+
+
         radioSexGroup = (RadioGroup) findViewById(R.id.radioGroup);
         weight_text = (EditText) findViewById(R.id.weightText);
 
@@ -165,8 +178,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buttonClick(){
-        FirebaseCrash.logcat(Log.ERROR, TAG, "in buttonClick");
-        FirebaseCrash.log("in buttonClick");
+        //FirebaseCrash.logcat(Log.ERROR, TAG, "in buttonClick");
+        //FirebaseCrash.log("in buttonClick");
         submit = (Button)findViewById(R.id.button);
         //need to take values!!!
         submit.setOnClickListener(new View.OnClickListener() {
@@ -179,8 +192,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                        if(selectedID == R.id.radioButton1) {
-                           FirebaseCrash.logcat(Log.ERROR, TAG, "in if");
-                           FirebaseCrash.log("in if");
+                           //FirebaseCrash.logcat(Log.ERROR, TAG, "in if");
+                           //FirebaseCrash.log("in if");
                             /*GENDER = 0.73;
                             BODY_WATER_CONSTANT = (float) 0.58;
                             METABOLISM_CONSTANT = (float) 0.015;
@@ -210,8 +223,8 @@ public class MainActivity extends AppCompatActivity {
 
                        else if(selectedID == R.id.radioButton2)
                         {
-                            FirebaseCrash.logcat(Log.ERROR, TAG, "in else if");
-                            FirebaseCrash.log("in else if");
+                            //FirebaseCrash.logcat(Log.ERROR, TAG, "in else if");
+                            //FirebaseCrash.log("in else if");
                             GENDER = 0.66;
                             SharedPreferences pref = getApplicationContext().getSharedPreferences("GENDER", MODE_PRIVATE);
                             SharedPreferences.Editor editor = pref.edit();
