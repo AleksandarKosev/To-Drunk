@@ -14,10 +14,41 @@
         android:orientation="horizontal"></LinearLayout>
 
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/radioGroup"
+        android:id="@+id/radioGroupSys"
         android:layout_width="fill_parent"
         android:layout_height="60dp"
         android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioButtonSys1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="19dp"
+            android:checked="true"
+            android:text="Metric"
+            tools:layout_editor_absoluteX="64dp"
+            tools:layout_editor_absoluteY="30dp"
+            android:buttonTint="#00a857"/>
+
+        <RadioButton
+            android:id="@+id/radioButtonSys2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:layout_marginStart="54dp"
+            android:layout_toEndOf="@+id/radioGroup"
+            android:text="Imperial"
+            android:buttonTint="#00a857"/>
+    </RadioGroup>
+
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/radioGroup"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/radioGroupSys">
 
         <RadioButton
             android:id="@+id/radioButton1"
@@ -28,16 +59,18 @@
             android:checked="true"
             android:text="Male"
             tools:layout_editor_absoluteX="64dp"
-            tools:layout_editor_absoluteY="30dp" />
+            tools:layout_editor_absoluteY="30dp"
+            android:buttonTint="#00a857"/>
 
         <RadioButton
             android:id="@+id/radioButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
             android:layout_marginTop="19dp"
-            android:layout_marginStart="54dp"
             android:layout_toEndOf="@+id/radioGroup"
-            android:text="Female" />
+            android:text="Female"
+            android:buttonTint="#00a857"/>
     </RadioGroup>
 
     <LinearLayout
@@ -57,7 +90,7 @@
         android:layout_below="@+id/radioGroup"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="29dp"
-        android:text="Weight(kg)"
+        android:text="Weight"
         android:textAlignment="center"
         android:textSize="30sp" />
 
@@ -73,7 +106,8 @@
         android:textColorLink="@android:color/holo_blue_dark"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        app:backgroundTint="#00a857"/>
 
 
 
@@ -83,8 +117,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="124dp"
         android:text="Submit"
+        android:textColor="@android:color/white"
         android:layout_below="@+id/weightText"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="#1700b8"/>
 
 
     <com.google.android.gms.ads.AdView
@@ -95,7 +131,9 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3760255090560782/5412671760">
+        ads:adUnitId="ca-app-pub-3760255090560782/5412671760"
+        >
+
     </com.google.android.gms.ads.AdView>
 
 

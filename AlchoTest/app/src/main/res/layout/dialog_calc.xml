@@ -21,7 +21,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="numberDecimal"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#00a857"/>
 
     <TextView
         android:id="@+id/result"
@@ -34,7 +35,7 @@
 
     <Button
         android:id="@+id/ok"
-        android:background="@color/colorPrimary"
+        android:background="#1700b8"
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:layout_marginTop="10dp"

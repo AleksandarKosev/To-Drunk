@@ -6,18 +6,21 @@
         <item id="500">Beer 500ml</item>
         <item id="12">Wine 187ml</item>
         <item id="401">Whisky 40ml</item>
+        <item id="404">Cognac 40ml</item>
         <item id="402">Vodka 40ml</item>
         <item id="20">Tequila 20ml</item>
+        <item id="38">Gin Tonic 250ml</item>
+        <item id="403">Ouzo 40ml</item>
     </string-array>
-    <string name="title_activity_calculator">CalculatorActivity</string>
+    <string name="title_activity_calculator">DrinkDrunk Calculator</string>
     <string name="insert_the_amount_of_time_spent_drinking_in_hours">Insert amount of time spent drinking (in Hours)</string>
-    <string name="hrs">Hrs</string>
+    <string name="hrs">e.g. 1.5</string>
     <string name="ok">OK</string>
     <string name="the_bac_in_your_system_is">The BAC in your system is:</string>
     <string name="like">Like this app</string>
     <string name="okay">Ok</string>
     <string name="about_this_app">About this app</string>
     <string name="note">Note:</string>
-    <string name="BAC_info">This blood alcochol calculator is not 100% accurate. Many other factors (such as age, amount of food in your system, taken medicine, etc.) have role in determing your BAC.</string>
+    <string name="BAC_info">This blood alcochol calculator is not 100% accurate. Many other factors (such as age, amount of food consumed, taken medication, etc.) have role in determing your BAC.</string>
     <string name="drink_responsibly">Drink responsibly!</string>
 </resources>

@@ -12,12 +12,12 @@
         android:text="@string/about_this_app"
         android:textStyle="bold"
         android:textSize="27sp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"/>
     <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="5dp"
+    android:layout_marginLeft="15dp"
     android:layout_marginTop="10dp"
     android:text="@string/note"
     android:textStyle="bold"
@@ -27,7 +27,7 @@
     <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="5dp"
+    android:layout_marginLeft="15dp"
     android:layout_marginTop="10dp"
     android:text="@string/BAC_info"
     android:textSize="21sp"
@@ -36,7 +36,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
         android:text="@string/drink_responsibly"
         android:textSize="21sp"
@@ -59,7 +59,9 @@
             android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:text="@string/like"
-            android:layout_marginLeft="5dp"/>
+            android:layout_marginLeft="15dp"
+            android:textColor="@android:color/white"
+            android:background="#1700b8"/>
 
         <Button
             android:id="@+id/ok_button"
@@ -67,8 +69,10 @@
             android:layout_width="185dp"
             android:layout_height="wrap_content"
             android:text="@string/okay"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="3dp"/>
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="3dp"
+            android:textColor="@android:color/white"
+            android:background="#1700b8"/>
 
     </LinearLayout>
 

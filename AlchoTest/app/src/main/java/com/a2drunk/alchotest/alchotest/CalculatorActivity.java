@@ -1,8 +1,10 @@
 package com.a2drunk.alchotest.alchotest;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -42,12 +44,18 @@ public class CalculatorActivity extends AppCompatActivity {
     private EditText count, hours;
     private ListView list;
     ArrayAdapter<String> adapter;
-    private Button submit, ok, okay;
+    private Button submit, ok, okay, Like;
     private TextView result;
 
     Dialog calcDialog;
 
     final ArrayList<Drink> mainListOfDrinks = new ArrayList<Drink>();
+
+    String[] drinksMetric = {"Beer 330ml, 330, 4", "Beer 500ml, 500, 4", "Wine 187ml, 187, 12", "Whisky 40ml, 40, 40", "Vodka 40ml, 40, 40", "Tequila 20ml, 20, 40", "Cognac 40ml, 40, 40", "Gin Tonic 250ml, 250, 19","Ouzo 40ml, 40, 40"};
+    List<String> drinksMetricSpinner = Arrays.asList("Beer 330ml", "Beer 500ml", "Wine 187ml", "Whisky 40ml", "Vodka 40ml", "Tequila 20ml", "Cognac 40ml","Gin Tonic 250ml","Ouzo 40ml");
+
+    String[] drinksImperial = {"Beer 12oz, 340, 4", "Beer 17.6oz, 500, 4", "Wine 6.6oz, 187, 12", "Wisky 1.4oz, 40, 40", "Vodka 1.4oz, 40, 40", "Tequila 0.7oz, 20, 40","Cognac 1.4oz, 40, 40","Gin Tonic 8.8oz, 250, 19","Ouzo 1.4oz, 40, 40"};
+    List<String> drinksImperialSpinner = Arrays.asList("Beer 12oz", "Beer 17.6oz", "Wine 6.6oz", "Wisky 1.4oz", "Vodka 1.4oz", "Tequila 0.7oz","Cognac 1.4oz","Gin Tonic 8.8oz","Ouzo 1.4oz");
 
     private static final String TAG = "Debug";
 
@@ -59,6 +67,7 @@ public class CalculatorActivity extends AppCompatActivity {
 
 
     float BODY_WEIGHT_IN_KG = 0;
+    boolean whatSys = true;
     int GENDERTYPE = 0;
     float lastDrinkHr = 0; //IN HOURS
     float drinkingPeriodHr = 0; //HOURS OF DRINKING
@@ -110,6 +119,9 @@ public class CalculatorActivity extends AppCompatActivity {
         SharedPreferences BODY_WEIGHT_IN_KGPref = getSharedPreferences("BODY_WEIGHT_IN_KG", 0);
         BODY_WEIGHT_IN_KG = BODY_WEIGHT_IN_KGPref.getFloat("BODY_WEIGHT_IN_KG", 0);
 
+        SharedPreferences whatSysPref = getSharedPreferences("whatSys", 0);
+        whatSys = whatSysPref.getBoolean("whatSys", true);
+
         SharedPreferences BODY_WATER_CONSTPref = getSharedPreferences("BODY_WATER_CONSTANT", 0);
         BODY_WATER_CONSTANT = BODY_WATER_CONSTPref.getFloat("BODY_WATER_CONSTANT", 0);
 
@@ -159,35 +171,42 @@ public class CalculatorActivity extends AppCompatActivity {
         //FirebaseCrash.log("in onCreate in CalculatorActivity");
 
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_calculator);
-
 
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-3760255090560782/2152438824");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-        spinner1 = (Spinner) findViewById(R.id.spinner1);
-        count = (EditText) findViewById(R.id.editText2);
-        list = (ListView) findViewById(R.id.list1);
-
 
         getConstantsFromDataBase();
         setConstans();
 
-
         //FirebaseCrash.logcat(Log.ERROR, TAG, "setting the text variable");
         //FirebaseCrash.log("setting the text variable");
-        //final  String[] text =  new String[] {(String) spinner1.getSelectedItem(), String.valueOf(count.getText())};
+
+        spinner1 = (Spinner) findViewById(R.id.spinner1);
+        list = (ListView) findViewById(R.id.list1);
         final String[] text = new String[]{};
         final List<String> elements = new ArrayList<String>(Arrays.asList(text));
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, elements);
         list.setAdapter(adapter);
+
+
+        //Log.v(TAG, "whatSysNewActv:" + String.valueOf(BODY_WEIGHT_IN_KG));
+        //Log.v(TAG, "whatSysNewActv:" + String.valueOf(whatSys));
+
+
+        if (whatSys == true) {
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, drinksMetricSpinner);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner1.setAdapter(dataAdapter);
+        } else {
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, drinksImperialSpinner);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner1.setAdapter(dataAdapter);
+        }
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -195,34 +214,28 @@ public class CalculatorActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-              /*  final  String[] text =  new String[] {};
-                final List<String> elements = new ArrayList<String>(Arrays.asList(text));
-                adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, elements);
-                list.setAdapter(adapter);*/
-
-
-                // Snackbar.make(view, "Drink added to list!", Snackbar.LENGTH_LONG)
-                //       .setAction("Action", null).show();
-                spinner1.getSelectedItem().toString();
-                if (spinner1.getSelectedItem().toString().equals("Beer 330ml")) {
-                    //Drink tmp = new Drink("Beer 330ml", 330, 4);
-                    mainListOfDrinks.add(new Drink("Beer 330ml", 330, 4));
-
-                } else if (spinner1.getSelectedItem().toString().equals("Beer 500ml")) {
-                    mainListOfDrinks.add(new Drink("Beer 500ml", 500, 4));
-                } else if (spinner1.getSelectedItem().toString().equals("Wine 187ml")) {
-                    mainListOfDrinks.add(new Drink("Wine 187ml", 187, 12));
-                } else if (spinner1.getSelectedItem().toString().equals("Whisky 40ml")) {
-                    mainListOfDrinks.add(new Drink("Whisky 40ml", 40, 40));
-                } else if (spinner1.getSelectedItem().toString().equals("Vodka 40ml")) {
-                    mainListOfDrinks.add(new Drink("Vodka 40ml", 40, 40));
+                if (whatSys == true) {
+                    String[] meh;
+                    for (String temp : drinksMetric) {
+                        meh = temp.split(", ");
+                        if (meh[0].equals(spinner1.getSelectedItem().toString())) {
+                            mainListOfDrinks.add(new Drink(meh[0], Float.parseFloat(meh[1]), Float.parseFloat(meh[2])));
+                            Log.v(TAG, String.valueOf(meh[0]) + String.valueOf(meh[1]) + String.valueOf(meh[2]));
+                        }
+                    }
                 } else {
-                    mainListOfDrinks.add(new Drink("Tequila 20ml", 20, 40));
+                    Log.v(TAG, String.valueOf("Entered"));
+                    String[] meh;
+                    for (String temp : drinksImperial) {
+                        meh = temp.split(", ");
+                        if (meh[0].equals(spinner1.getSelectedItem().toString())) {
+                            mainListOfDrinks.add(new Drink(meh[0], Float.parseFloat(meh[1]), Float.parseFloat(meh[2])));
+                            Log.v(TAG, String.valueOf(meh[0]) + String.valueOf(meh[1]) + String.valueOf(meh[2]));
+                        }
+                    }
                 }
-
                 elements.add((String) spinner1.getSelectedItem());
                 adapter.notifyDataSetChanged();
-
             }
         });
 
@@ -297,10 +310,19 @@ public class CalculatorActivity extends AppCompatActivity {
                 iBuilder.setView(iView);
                 final AlertDialog dialog = iBuilder.create();
                 okay = (Button) iView.findViewById(R.id.ok_button);
+                Like = (Button) iView.findViewById(R.id.Like);
                 okay.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         dialog.cancel();
+                    }
+                });
+
+                Like.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent1 =new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + CalculatorActivity.this.getPackageName()));
+                        startActivity(intent1);
                     }
                 });
 

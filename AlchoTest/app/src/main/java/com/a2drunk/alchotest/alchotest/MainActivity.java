@@ -30,7 +30,11 @@ public class MainActivity extends AppCompatActivity {
 
     private Button submit, Ok;
     private RadioGroup radioSexGroup;
+    //IvsS//DECLARATION
+    private RadioGroup radioGroupSys;
     private EditText weight_text;
+    //IvsS//DECLARATION
+    boolean whatSys = true;
 
     String warning_body_kg = "Please insert your weight!";
 
@@ -40,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     float drinkingPeriodHr = 0; //HOURS OF DRINKING
 
     float BODY_WEIGHT_IN_LB = 0;
-    double GENDER =  0; //0.73 for man//ili 0.66 for women
+    double GENDER = 0; //0.73 for man//ili 0.66 for women
     float BODY_WATER_CONSTANT = (float) 0;//0.58 for man//0.49 for women !!!!
     float METABOLISM_CONSTANT = (float) 0;//0.015 for man//0.017 for women !!!!
     private static final String TAG = "Debug";
@@ -71,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
         //ediotr.commit();
     }
 
-
-
     void storeBODY_WEIGHT_IN_KG() {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("BODY_WEIGHT_IN_KG", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
@@ -83,6 +85,15 @@ public class MainActivity extends AppCompatActivity {
         //ediotr.commit();
     }
 
+    void storeWhatSys() {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("whatSys", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean("whatSys", whatSys);        // Saving integer
+        editor.apply();
+        //FirebaseCrash.logcat(Log.ERROR, TAG, "Storing whatSys");
+        //FirebaseCrash.log("Storing whatSys in storeWhatSys");
+        //ediotr.commit();
+    }
 
 /*
     double BODY_WEIGHT_IN_LB=250;
@@ -90,25 +101,25 @@ public class MainActivity extends AppCompatActivity {
     double lastDrinkHr=1.5; */
 
     //BAC%=(A*5.14/W*r)-0.015*H//A=total alchocol consumed(oz)//W=Body weight(lbs)//r=constant(0.73 or 0.66)//H=last drink
-    double mainFormula1(double listOz[],double listProcent[]){
-        double pro=0;
-        for(int i=0;i<listOz.length;i++){
-            pro+=listOz[i]*listProcent[i];
+    double mainFormula1(double listOz[], double listProcent[]) {
+        double pro = 0;
+        for (int i = 0; i < listOz.length; i++) {
+            pro += listOz[i] * listProcent[i];
         }
         //FirebaseCrash.logcat(Log.ERROR, TAG, "Inside mainFormula1");
         //FirebaseCrash.log("Inside mainFormula1");
-        return (pro*0.75)-BODY_WEIGHT_IN_LB-lastDrinkHr*0.015;
+        return (pro * 0.75) - BODY_WEIGHT_IN_LB - lastDrinkHr * 0.015;
 
     }
 
-    double mainFormula2(double listOz[],double listProcent[]){
-        double pro=1;
-        for(int i=0;i<listOz.length;i++){
-            pro+=(listOz[i]*listProcent[i]/BODY_WEIGHT_IN_LB*GENDER)-0.015*lastDrinkHr;
+    double mainFormula2(double listOz[], double listProcent[]) {
+        double pro = 1;
+        for (int i = 0; i < listOz.length; i++) {
+            pro += (listOz[i] * listProcent[i] / BODY_WEIGHT_IN_LB * GENDER) - 0.015 * lastDrinkHr;
         }
         //FirebaseCrash.logcat(Log.ERROR, TAG, "Inside mainFormula2");
         //FirebaseCrash.log("Inside mainFormula2");
-        return (pro*0.75)-BODY_WEIGHT_IN_LB-lastDrinkHr*0.015;
+        return (pro * 0.75) - BODY_WEIGHT_IN_LB - lastDrinkHr * 0.015;
 
     }
 
@@ -127,8 +138,9 @@ public class MainActivity extends AppCompatActivity {
         mAdView.loadAd(adRequest);
 
 
-
         radioSexGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        //IvsS//DECLARATION
+        radioGroupSys = (RadioGroup) findViewById(R.id.radioGroupSys);
         weight_text = (EditText) findViewById(R.id.weightText);
 
         buttonClick();
@@ -136,9 +148,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-     getMenuInflater().inflate(R.menu.mymenu, menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mymenu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -152,13 +163,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.info:
                 AlertDialog.Builder iBuilder = new AlertDialog.Builder(MainActivity.this);
                 View iView = getLayoutInflater().inflate(R.layout.info_dialog, null);
                 iBuilder.setView(iView);
-              final  AlertDialog dialog = iBuilder.create();
+                final AlertDialog dialog = iBuilder.create();
                 Ok = (Button) iView.findViewById(R.id.ok_button);
                 Ok.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -168,98 +178,112 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
-
                 dialog.show();
 
         }
 
 
-            return true;
+        return true;
     }
 
-    public void buttonClick(){
+    public void buttonClick() {
         //FirebaseCrash.logcat(Log.ERROR, TAG, "in buttonClick");
         //FirebaseCrash.log("in buttonClick");
-        submit = (Button)findViewById(R.id.button);
+        submit = (Button) findViewById(R.id.button);
         //need to take values!!!
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                //IvsS//Setting whatSys either true or false
+                int selectedIDSys = radioGroupSys.getCheckedRadioButtonId();
+                if (selectedIDSys==R.id.radioButtonSys1){
+                    whatSys=true;
+                }else if(selectedIDSys==R.id.radioButtonSys2){
+                    whatSys=false;
+                }
+
+                Log.v(TAG, "whatSys:"+String.valueOf(whatSys));
+
+
                 int selectedID = radioSexGroup.getCheckedRadioButtonId();
-
-
-
-
-                       if(selectedID == R.id.radioButton1) {
-                           //FirebaseCrash.logcat(Log.ERROR, TAG, "in if");
-                           //FirebaseCrash.log("in if");
+                if (selectedID == R.id.radioButton1) {
+                    //FirebaseCrash.logcat(Log.ERROR, TAG, "in if");
+                    //FirebaseCrash.log("in if");
                             /*GENDER = 0.73;
                             BODY_WATER_CONSTANT = (float) 0.58;
                             METABOLISM_CONSTANT = (float) 0.015;
                             storeGENDERTYPE();*/
-                            GENDER = 0.73;
-                            SharedPreferences pref = getApplicationContext().getSharedPreferences("GENDER", MODE_PRIVATE);
-                            SharedPreferences.Editor editor = pref.edit();
-                            editor.putFloat("GENDER",(float) GENDER);        // Saving integer
-                            editor.apply();
+                    GENDER = 0.73;
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences("GENDER", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putFloat("GENDER", (float) GENDER);        // Saving integer
+                    editor.apply();
 
-                           BODY_WATER_CONSTANT = (float) 0.58;
-                            pref = getApplicationContext().getSharedPreferences("BODY_WATER_CONSTANT", MODE_PRIVATE);
-                            editor = pref.edit();
-                           editor.putFloat("BODY_WATER_CONSTANT", BODY_WATER_CONSTANT);        // Saving integer
-                           editor.apply();
-
-
-                           METABOLISM_CONSTANT = (float) 0.015;
-
-                            pref = getApplicationContext().getSharedPreferences("METABOLISM_CONSTANT", MODE_PRIVATE);
-                            editor = pref.edit();
-                           editor.putFloat("METABOLISM_CONSTANT", METABOLISM_CONSTANT);        // Saving integer
-                           editor.apply();
+                    BODY_WATER_CONSTANT = (float) 0.58;
+                    pref = getApplicationContext().getSharedPreferences("BODY_WATER_CONSTANT", MODE_PRIVATE);
+                    editor = pref.edit();
+                    editor.putFloat("BODY_WATER_CONSTANT", BODY_WATER_CONSTANT);        // Saving integer
+                    editor.apply();
 
 
-                        }
+                    METABOLISM_CONSTANT = (float) 0.015;
 
-                       else if(selectedID == R.id.radioButton2)
-                        {
-                            //FirebaseCrash.logcat(Log.ERROR, TAG, "in else if");
-                            //FirebaseCrash.log("in else if");
-                            GENDER = 0.66;
-                            SharedPreferences pref = getApplicationContext().getSharedPreferences("GENDER", MODE_PRIVATE);
-                            SharedPreferences.Editor editor = pref.edit();
-                            editor.putFloat("GENDER",(float) GENDER);        // Saving integer
-                            editor.apply();
+                    pref = getApplicationContext().getSharedPreferences("METABOLISM_CONSTANT", MODE_PRIVATE);
+                    editor = pref.edit();
+                    editor.putFloat("METABOLISM_CONSTANT", METABOLISM_CONSTANT);        // Saving integer
+                    editor.apply();
 
-                            BODY_WATER_CONSTANT = (float)0.49;
-                            pref = getApplicationContext().getSharedPreferences("BODY_WATER_CONSTANT", MODE_PRIVATE);
-                            editor = pref.edit();
-                            editor.putFloat("BODY_WATER_CONSTANT", BODY_WATER_CONSTANT);        // Saving integer
-                            editor.apply();
 
-                            METABOLISM_CONSTANT = (float) 0.017 ;
-                            pref = getApplicationContext().getSharedPreferences("METABOLISM_CONSTANT", MODE_PRIVATE);
-                            editor = pref.edit();
-                            editor.putFloat("METABOLISM_CONSTANT", METABOLISM_CONSTANT);        // Saving integer
-                            editor.apply();
+                } else if (selectedID == R.id.radioButton2) {
+                    //FirebaseCrash.logcat(Log.ERROR, TAG, "in else if");
+                    //FirebaseCrash.log("in else if");
+                    GENDER = 0.66;
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences("GENDER", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putFloat("GENDER", (float) GENDER);        // Saving integer
+                    editor.apply();
 
-                        }
+                    BODY_WATER_CONSTANT = (float) 0.49;
+                    pref = getApplicationContext().getSharedPreferences("BODY_WATER_CONSTANT", MODE_PRIVATE);
+                    editor = pref.edit();
+                    editor.putFloat("BODY_WATER_CONSTANT", BODY_WATER_CONSTANT);        // Saving integer
+                    editor.apply();
 
+                    METABOLISM_CONSTANT = (float) 0.017;
+                    pref = getApplicationContext().getSharedPreferences("METABOLISM_CONSTANT", MODE_PRIVATE);
+                    editor = pref.edit();
+                    editor.putFloat("METABOLISM_CONSTANT", METABOLISM_CONSTANT);        // Saving integer
+                    editor.apply();
+
+                }
 
 
                 String kg = weight_text.getText().toString();
-                if(kg.isEmpty())
-                {Toast.makeText(MainActivity.this, warning_body_kg, Toast.LENGTH_LONG).show();
-                }
-               else  {BODY_WEIGHT_IN_KG = Float.parseFloat(kg);
-                // if(BODY_WEIGHT_IN_KG > 0) {
+                if (kg.isEmpty()) {
+                    Toast.makeText(MainActivity.this, warning_body_kg, Toast.LENGTH_LONG).show();
+                } else {
+                    //IvsS//If whatSys is true nvm, if false convert to kg
+                    if(whatSys==true){
+                        BODY_WEIGHT_IN_KG = Float.parseFloat(kg);
+                    }else if(whatSys==false){
+                        BODY_WEIGHT_IN_KG = Float.parseFloat(kg)/(float)2.20462;
+                    }
+                    // if(BODY_WEIGHT_IN_KG > 0) {
                     SharedPreferences pref = getApplicationContext().getSharedPreferences("BODY_WEIGHT_IN_KG", MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putFloat("BODY_WEIGHT_IN_KG", BODY_WEIGHT_IN_KG);        // Saving integer
                     editor.apply();
 
+                    SharedPreferences preff = getApplicationContext().getSharedPreferences("whatSys", MODE_PRIVATE);
+                    SharedPreferences.Editor editorr = preff.edit();
+                    editorr.putBoolean("whatSys", whatSys);        // Saving integer
+                    editorr.apply();
+
+                    Log.v(TAG, "whatSys:"+String.valueOf(BODY_WEIGHT_IN_KG));
                     //ediotr.commit();
                     startActivity(new Intent(MainActivity.this, CalculatorActivity.class));
+
                 }
                 /*else
                 {
