@@ -1,6 +1,7 @@
 package com.a2drunk.alchotest.alchotest;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AdView mAdView;
 
-    private Button submit, Ok;
+    private Button submit, Ok, Like;
     private RadioGroup radioSexGroup;
     //IvsS//DECLARATION
     private RadioGroup radioGroupSys;
@@ -170,10 +171,19 @@ public class MainActivity extends AppCompatActivity {
                 iBuilder.setView(iView);
                 final AlertDialog dialog = iBuilder.create();
                 Ok = (Button) iView.findViewById(R.id.ok_button);
+                Like = (Button) iView.findViewById(R.id.Like);
                 Ok.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         dialog.cancel();
+                    }
+                });
+
+                Like.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent1 =new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + MainActivity.this.getPackageName()));
+                        startActivity(intent1);
                     }
                 });
 

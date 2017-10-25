@@ -268,9 +268,9 @@ public class CalculatorActivity extends AppCompatActivity {
                             countOfSD = calculateStandardDrinks();
                             float percent = mainFormula2(countOfSD);
                             if (percent <= 0) {
-                                result.setText("0.00  permile (%o)");
+                                result.setText("0.00  permile (‰)");
                             } else {
-                                result.setText(String.format("%.3f", percent) + "  permile (%o)");
+                                result.setText(String.format("%.3f", percent) + "  permile (‰)");
                             }
 
 
