@@ -3,11 +3,9 @@ package com.a2drunk.alchotest.alchotest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -220,17 +218,17 @@ public class CalculatorActivity extends AppCompatActivity {
                         meh = temp.split(", ");
                         if (meh[0].equals(spinner1.getSelectedItem().toString())) {
                             mainListOfDrinks.add(new Drink(meh[0], Float.parseFloat(meh[1]), Float.parseFloat(meh[2])));
-                            Log.v(TAG, String.valueOf(meh[0]) + String.valueOf(meh[1]) + String.valueOf(meh[2]));
+                            //Log.v(TAG, String.valueOf(meh[0]) + String.valueOf(meh[1]) + String.valueOf(meh[2]));
                         }
                     }
                 } else {
-                    Log.v(TAG, String.valueOf("Entered"));
+                    ////Log.v(TAG, String.valueOf("Entered"));
                     String[] meh;
                     for (String temp : drinksImperial) {
                         meh = temp.split(", ");
                         if (meh[0].equals(spinner1.getSelectedItem().toString())) {
                             mainListOfDrinks.add(new Drink(meh[0], Float.parseFloat(meh[1]), Float.parseFloat(meh[2])));
-                            Log.v(TAG, String.valueOf(meh[0]) + String.valueOf(meh[1]) + String.valueOf(meh[2]));
+                            //Log.v(TAG, String.valueOf(meh[0]) + String.valueOf(meh[1]) + String.valueOf(meh[2]));
                         }
                     }
                 }
@@ -260,8 +258,6 @@ public class CalculatorActivity extends AppCompatActivity {
 
                             if (mInterstitialAd.isLoaded()) {
                                 mInterstitialAd.show();
-                            } else {
-                                Log.d("TAG", "The interstitial wasn't loaded yet.");
                             }
 
                             drinkingPeriodHr = Float.valueOf(hours.getText().toString());

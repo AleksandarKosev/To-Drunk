@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
                     whatSys=false;
                 }
 
-                Log.v(TAG, "whatSys:"+String.valueOf(whatSys));
+                //Log.v(TAG, "whatSys:"+String.valueOf(whatSys));
 
 
                 int selectedID = radioSexGroup.getCheckedRadioButtonId();
@@ -290,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
                     editorr.putBoolean("whatSys", whatSys);        // Saving integer
                     editorr.apply();
 
-                    Log.v(TAG, "whatSys:"+String.valueOf(BODY_WEIGHT_IN_KG));
+                    //Log.v(TAG, "whatSys:"+String.valueOf(BODY_WEIGHT_IN_KG));
                     //ediotr.commit();
                     startActivity(new Intent(MainActivity.this, CalculatorActivity.class));
 
