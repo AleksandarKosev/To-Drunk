@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.a2drunk.alchotest.alchotest">
 
+	<uses-sdk android:minSdkVersion="19"
+          />
+
+
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
