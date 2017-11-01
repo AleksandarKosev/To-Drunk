@@ -57,9 +57,17 @@
             android:layout_below="@+id/textView3"
             android:layout_alignParentEnd="true" />
 
-
-
-
+        <Button
+            android:id="@+id/removebtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/button2"
+            android:layout_below="@+id/spinner1"
+            android:text="Delete All"
+            android:textColor="@android:color/white"
+            android:background="#930000"
+            android:clickable="false"
+            />
 
 
     </RelativeLayout>

@@ -42,7 +42,7 @@ public class CalculatorActivity extends AppCompatActivity {
     private EditText count, hours;
     private ListView list;
     ArrayAdapter<String> adapter;
-    private Button submit, ok, okay, Like;
+    private Button submit, ok, okay, Like, remove;
     private TextView result;
 
     Dialog calcDialog;
@@ -171,6 +171,9 @@ public class CalculatorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
 
+
+        remove = (Button) findViewById(R.id.removebtn);
+
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-3760255090560782/2152438824");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
@@ -219,6 +222,7 @@ public class CalculatorActivity extends AppCompatActivity {
                         if (meh[0].equals(spinner1.getSelectedItem().toString())) {
                             mainListOfDrinks.add(new Drink(meh[0], Float.parseFloat(meh[1]), Float.parseFloat(meh[2])));
                             //Log.v(TAG, String.valueOf(meh[0]) + String.valueOf(meh[1]) + String.valueOf(meh[2]));
+
                         }
                     }
                 } else {
@@ -232,6 +236,8 @@ public class CalculatorActivity extends AppCompatActivity {
                         }
                     }
                 }
+                remove.setClickable(true);
+
                 elements.add((String) spinner1.getSelectedItem());
                 adapter.notifyDataSetChanged();
             }
@@ -276,6 +282,26 @@ public class CalculatorActivity extends AppCompatActivity {
                 mBuilder.setView(mView);
                 AlertDialog dialog = mBuilder.create();
                 dialog.show();
+            }
+        });
+
+
+        remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                for(int i =mainListOfDrinks.size()-1; i>= 0; i--)
+                {
+                    Log.v(TAG, String.valueOf("deleting element:"+String.valueOf(i)));
+                    mainListOfDrinks.remove(i);
+                    Log.v(TAG,"size of mainLIstOfDrinks is:"+String.valueOf(mainListOfDrinks.size()));
+                }
+                //list.setAdapter(null);
+                //adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, elements);
+                //list.setAdapter(adapter);
+                adapter.clear();
+                list.setAdapter(adapter);
+                remove.setClickable(false);
             }
         });
 
