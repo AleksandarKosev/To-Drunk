@@ -1,16 +1,20 @@
 package com.a2drunk.alchotest.alchotest;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,8 +22,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -29,23 +35,45 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.crash.FirebaseCrash;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static java.security.AccessController.getContext;
+
 public class CalculatorActivity extends AppCompatActivity {
 
     private InterstitialAd mInterstitialAd;
+
+
+    LineGraphSeries<DataPoint> series;
+
 
     private Spinner spinner1;
     private EditText count, hours;
     private ListView list;
     ArrayAdapter<String> adapter;
-    private Button submit, ok, okay, Like, remove;
+    private Button submit, ok, okay, Like, remove, chartview, close;
     private TextView result;
 
     Dialog calcDialog;
+
+
+    void storedrinkingPeriodHr() {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("drinkingPeriodHr", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putFloat("drinkingPeriodHr", drinkingPeriodHr);        // Saving integer
+        editor.apply();
+        //FirebaseCrash.logcat(Log.ERROR, TAG, "Storing whatSys");
+        //FirebaseCrash.log("Storing whatSys in storeWhatSys");
+        //ediotr.commit();
+    }
+
+
 
     final ArrayList<Drink> mainListOfDrinks = new ArrayList<Drink>();
 
@@ -69,7 +97,7 @@ public class CalculatorActivity extends AppCompatActivity {
     int GENDERTYPE = 0;
     float lastDrinkHr = 0; //IN HOURS
     float drinkingPeriodHr = 0; //HOURS OF DRINKING
-
+    float percent;
     float BODY_WEIGHT_IN_LB = 0;
     float GENDER = (float) 0; //0.73 for man//ili 0.66 for women
     float BODY_WATER_CONSTANT = (float) 0;//0.58 for man//0.49 for women
@@ -175,7 +203,7 @@ public class CalculatorActivity extends AppCompatActivity {
         remove = (Button) findViewById(R.id.removebtn);
 
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3760255090560782/2152438824");
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -252,6 +280,11 @@ public class CalculatorActivity extends AppCompatActivity {
                 //FirebaseCrash.log("in submit");
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(CalculatorActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.dialog_calc, null);
+                mBuilder.setView(mView);
+                final AlertDialog dialog = mBuilder.create();
+
+                chartview = (Button) mView.findViewById(R.id.chartview);
+                close = (Button) mView.findViewById(R.id.close_btn);
                 hours = (EditText) mView.findViewById(R.id.Hours);
                 result = (TextView) mView.findViewById(R.id.result);
                 ok = (Button) mView.findViewById(R.id.ok);
@@ -267,20 +300,62 @@ public class CalculatorActivity extends AppCompatActivity {
                             }
 
                             drinkingPeriodHr = Float.valueOf(hours.getText().toString());
+
+                            SharedPreferences pref = getApplicationContext().getSharedPreferences("drinkingPeriodHr", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.putFloat("drinkingPeriodHr", drinkingPeriodHr);        // Saving float drinkingHr
+                            editor.apply();
+
+
                             countOfSD = calculateStandardDrinks();
-                            float percent = mainFormula2(countOfSD);
+                            //This is added later
+                            SharedPreferences pref1 = getApplicationContext().getSharedPreferences("countOfSD", MODE_PRIVATE);
+                            SharedPreferences.Editor editor1 = pref1.edit();
+                            editor1.putFloat("countOfSD", countOfSD);        // Saving float countOfSD
+                            editor1.apply();
+
+                            percent = mainFormula2(countOfSD);
+                            //This is added later
+                            SharedPreferences pref2 = getApplicationContext().getSharedPreferences("percent", MODE_PRIVATE);
+                            SharedPreferences.Editor editor2 =pref2.edit();
+                            editor2.putFloat("percent", percent);
+                            editor2.apply();
+
+
+
                             if (percent <= 0) {
                                 result.setText("0.00  permille (‰)");
                             } else {
                                 result.setText(String.format("%.3f", percent) + "  permille (‰)");
                             }
-
+                            chartview.setClickable(true);
 
                         }
                     }
                 });
-                mBuilder.setView(mView);
-                AlertDialog dialog = mBuilder.create();
+
+                chartview.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent openChart = new Intent(CalculatorActivity.this, GraphActivity.class);
+                        startActivity(openChart);
+
+                    }
+                });
+
+                close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        dialog.cancel();
+                    }
+                });
+
+
+
+
+                //mBuilder.setView(mView);
+                //AlertDialog dialog = mBuilder.create();
                 dialog.show();
             }
         });

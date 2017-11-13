@@ -23,4 +23,5 @@
     <string name="note">Note:</string>
     <string name="BAC_info">This blood alcochol calculator is not 100% accurate. Many other factors (such as age, amount of food consumed, taken medication, etc.) have role in determing your BAC.</string>
     <string name="drink_responsibly">Drink responsibly!</string>
+    <string name="close">close</string>
 </resources>
