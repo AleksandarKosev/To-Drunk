@@ -287,6 +287,7 @@ public class CalculatorActivity extends AppCompatActivity {
                 close = (Button) mView.findViewById(R.id.close_btn);
                 hours = (EditText) mView.findViewById(R.id.Hours);
                 result = (TextView) mView.findViewById(R.id.result);
+                chartview.setClickable(false);
                 ok = (Button) mView.findViewById(R.id.ok);
                 ok.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -294,6 +295,7 @@ public class CalculatorActivity extends AppCompatActivity {
 
                         if (!hours.getText().toString().isEmpty()) {
 
+                            //chartview.setClickable(true);
 
                             if (mInterstitialAd.isLoaded()) {
                                 mInterstitialAd.show();
@@ -328,20 +330,27 @@ public class CalculatorActivity extends AppCompatActivity {
                             } else {
                                 result.setText(String.format("%.3f", percent) + "  permille (‰)");
                             }
-                            chartview.setClickable(true);
 
+                            chartview.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent openChart = new Intent(CalculatorActivity.this, GraphActivity.class);
+                                    startActivity(openChart);
+
+                                }
+                            });
+
+                        }
+
+                        else if(hours.getText().toString().isEmpty())
+                        {
+                            chartview.setClickable(false);
                         }
                     }
                 });
 
-                chartview.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent openChart = new Intent(CalculatorActivity.this, GraphActivity.class);
-                        startActivity(openChart);
+               // chartview.setClickable(false);
 
-                    }
-                });
 
                 close.setOnClickListener(new View.OnClickListener() {
                     @Override

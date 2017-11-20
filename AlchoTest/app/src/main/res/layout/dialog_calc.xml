@@ -48,14 +48,19 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="see chart"
-            android:clickable="false"/>
+            android:clickable="false"
+            android:textColor="@android:color/white"
+            android:backgroundTint="#930000"
+            />
 
         <Button
             android:id="@+id/close_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/close" />
+            android:text="@string/close"
+            android:textColor="@android:color/white"
+            android:backgroundTint="#930000"/>
 
 
     </LinearLayout>

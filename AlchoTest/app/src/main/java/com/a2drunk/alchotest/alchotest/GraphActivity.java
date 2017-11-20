@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.*;
+import android.widget.TextView;
+
 import com.a2drunk.alchotest.alchotest.CalculatorActivity;
 
 import com.jjoe64.graphview.GraphView;
@@ -24,6 +26,7 @@ public class GraphActivity extends AppCompatActivity {
 
     //LineGraphSeries<DataPoint> series;
     BarGraphSeries<DataPoint> series;
+    private TextView graphresult;
     float drinkingPeriodHr = 0;
     float  percent = 0;
 
@@ -38,16 +41,6 @@ public class GraphActivity extends AppCompatActivity {
     float BODY_WATER_CONSTANT = (float) 0;//0.58 for man//0.49 for women
     float METABOLISM_CONSTANT = (float) 0;//0.015 for man//0.017 for women
 
-
-   /* void storedrinkingPeriodHr() {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("whatSys", MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putBoolean("whatSys", whatSys);        // Saving integer
-        editor.apply();
-        //FirebaseCrash.logcat(Log.ERROR, TAG, "Storing whatSys");
-        //FirebaseCrash.log("Storing whatSys in storeWhatSys");
-        //ediotr.commit();
-    }*/
 
 
 
@@ -83,11 +76,9 @@ public class GraphActivity extends AppCompatActivity {
 
 
     public float mainFormula2(float sumofSD) {
-        //FirebaseCrash.logcat(Log.ERROR, TAG, "in mainFormula2");
-        //FirebaseCrash.log("in mainFormula2");
+
         return ((((float) 0.806 * sumofSD * (float) 1.2) / (BODY_WATER_CONSTANT * BODY_WEIGHT_IN_KG)) - (METABOLISM_CONSTANT * drinkingPeriodHr)) * 10;
 
-        //sumofSD = calculateStandardDrinks()
 
     }
 
@@ -121,70 +112,36 @@ public class GraphActivity extends AppCompatActivity {
 
         percent = mainFormula2(countOfSD);
 
-
-
-       // double y, x;
-        //x= 4.0;
-
-
-
         GraphView graph = (GraphView) findViewById(R.id.graph);
-
-
-
-
-       /* series = new LineGraphSeries<DataPoint>( new DataPoint[]
-                {
-                        new DataPoint(drinkingPeriodHr,percent),
-                       // new DataPoint(drinkingPeriodHr+0.25, percent-0.01),
-                       // new DataPoint(drinkingPeriodHr+0.50, percent-0.02)
-                        // not finished
-                });*/
-
-
-
-
-
-
-
-
-        /*Paint paint = new Paint();
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(10);
-        paint.setPathEffect(new DashPathEffect(new float[]{8, 5}, 0));
-        series.setCustomPaint(paint);*/
-
-      // CalculatorActivity calc1 = new CalculatorActivity();
-
-       // series.appendData(new DataPoint(drinkingPeriodHr, percent),true, 750);
-        //int i=0;
-
-
-
-         //series = new LineGraphSeries<DataPoint>(); !!!
+        graphresult = (TextView) findViewById(R.id.graph_result);
 
          series = new BarGraphSeries<DataPoint>();
 
             for (int i = 0; i <200; i++) {
             if(percent <=  0.00)
+            {
+                graphresult.setText("Your BAC will be 0 ‰ in about " + drinkingPeriodHr + " hours!");
                 break;
-            else {
+            }
 
-                series.appendData(new DataPoint(drinkingPeriodHr, percent), true, 200);
+            else {
+                //String a = String.format("%.3f", percent);
+                //float p = Float.valueOf(a);
+                series.appendData(new DataPoint(drinkingPeriodHr, Float.valueOf(String.format("%.2f", percent))), true, 200);
                 drinkingPeriodHr = (float) (drinkingPeriodHr + 0.5);
                 percent = mainFormula2(countOfSD);
-                
+
 
             }
         }
 
 
-        series.setSpacing(25);
+        series.setSpacing(30);
 
         series.setTitle("Permilles of alchocol");
         series.setDrawValuesOnTop(true);
         series.setValuesOnTopColor(Color.BLACK);
-        series.setColor(Color.GREEN);
+        series.setColor(Color.BLUE);
         /*series.setDrawDataPoints(true);
         series.setDataPointsRadius(9);      For LineGraphSeries!
         series.setThickness(8);*/
