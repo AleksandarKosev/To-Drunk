@@ -136,11 +136,12 @@ public class GraphActivity extends AppCompatActivity {
         }
 
 
-        series.setSpacing(30);
+        series.setSpacing(60); //30
 
         series.setTitle("Permilles of alchocol");
         series.setDrawValuesOnTop(true);
         series.setValuesOnTopColor(Color.BLACK);
+        series.setValuesOnTopSize(55);
         series.setColor(Color.BLUE);
         /*series.setDrawDataPoints(true);
         series.setDataPointsRadius(9);      For LineGraphSeries!
