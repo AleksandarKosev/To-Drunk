@@ -1,5 +1,6 @@
 package com.a2drunk.alchotest.alchotest;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
@@ -8,10 +9,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.*;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.a2drunk.alchotest.alchotest.CalculatorActivity;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.BarGraphSeries;
@@ -25,8 +31,12 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 public class GraphActivity extends AppCompatActivity {
 
     //LineGraphSeries<DataPoint> series;
+
+    private AdView mAdView2;
+
     BarGraphSeries<DataPoint> series;
     private TextView graphresult;
+    private Button backButton;
     float drinkingPeriodHr = 0;
     float  percent = 0;
 
@@ -107,6 +117,13 @@ public class GraphActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.graph_activity);
 
+
+        // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
+        MobileAds.initialize(this, "ca-app-pub-3760255090560782~9342154398");
+        mAdView2 = (AdView) findViewById(R.id.adViewGraph);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView2.loadAd(adRequest);
+
         getConstantsFromDataBase();
         setConstans();
 
@@ -114,7 +131,7 @@ public class GraphActivity extends AppCompatActivity {
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
         graphresult = (TextView) findViewById(R.id.graph_result);
-
+        backButton=(Button)findViewById(R.id.backButton);
          series = new BarGraphSeries<DataPoint>();
 
             for (int i = 0; i <200; i++) {
@@ -135,6 +152,12 @@ public class GraphActivity extends AppCompatActivity {
             }
         }
 
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         series.setSpacing(60); //30
 

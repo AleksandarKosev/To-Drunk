@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
+    android:orientation="vertical"
     android:padding="15dp">
 
     <LinearLayout
+        android:id="@+id/graph_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:id="@+id/graph_layout"
         android:animateLayoutChanges="true">
 
         <com.jjoe64.graphview.GraphView
@@ -20,22 +20,47 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/graph_layout"
         android:animateLayoutChanges="true">
+
         <TextView
             android:id="@+id/graph_result"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="25sp"
-            android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
-            android:textStyle="bold"
+            android:layout_marginTop="5dp"
             android:text=""
-            />
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/linearLayout3"
+        android:backgroundTint="#930000"
+        android:text="Back"
+        android:textColor="@android:color/white" />
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adViewGraph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3760255090560782/4327336092"
+        >
+
+    </com.google.android.gms.ads.AdView>
 
 
 </RelativeLayout>
