@@ -1,0 +1,17 @@
+andorid application id:
+ca-app-pub-3760255090560782~9342154398
+
+indexAd id:
+ca-app-pub-3760255090560782/5412671760
+
+afterResultAd id:
+ca-app-pub-3760255090560782/2152438824
+
+
+
+
+test ad id:
+ca-app-pub-3940256099942544/6300978111
+
+test ad id interseitaian:
+ca-app-pub-3940256099942544/1033173712

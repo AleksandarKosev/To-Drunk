@@ -164,20 +164,27 @@ public class GraphActivity extends AppCompatActivity {
         series.setTitle("Permilles of alchocol");
         series.setDrawValuesOnTop(true);
         series.setValuesOnTopColor(Color.BLACK);
-        series.setValuesOnTopSize(55);
+        //series.setValuesOnTopSize(35);
         series.setColor(Color.BLUE);
         /*series.setDrawDataPoints(true);
         series.setDataPointsRadius(9);      For LineGraphSeries!
         series.setThickness(8);*/
 
-        graph.getViewport().setScrollable(true); // enables horizontal scrolling
-        graph.getViewport().setScrollableY(true);
-        graph.getViewport().setScalable(true);
-        graph.getViewport().setScalableY(true);
+
+//        graph.getViewport().setScrollable(true); // enables horizontal scrolling
+//        graph.getViewport().setScrollableY(false);
+//        graph.getViewport().setScalable(false);
+//        graph.getViewport().setScalableY(false);
+
+        graph.getViewport().setScrollable(true);
+
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
         graph.getViewport().setMaxX(10);
         graph.getViewport().setMinY(0);
+
+        graph.getViewport().setMaxY((int) percent + 1);
+
         graph.getLegendRenderer().setVisible(true);
         graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
         graph.addSeries(series);
